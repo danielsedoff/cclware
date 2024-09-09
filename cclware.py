@@ -1,6 +1,7 @@
 """ cclware main module. see danielsedoff@github """
 
 from datetime import datetime
+from shellex import shellex, cmdc
 from history import history
 
 
@@ -9,6 +10,8 @@ LOG_FILE = 'ccl.log'
 
 commands = []
 commands.append(("history", history))
+commands.append(("sh", shellex))
+commands.append(("cmdc", cmdc))
 
 def extract_params(line, cmd):
     """ extract parameters from the user input string """
@@ -29,7 +32,6 @@ while True:
     userLine = input("> ").strip()
     log(userLine)
     userCmd = userLine.split(" ")[0]
-    print ("cmd is: " + userCmd)
     for command in commands:
         if command[0] == userCmd:
             commandFunction = command[1]
